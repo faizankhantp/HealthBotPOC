@@ -16,11 +16,16 @@ module.exports.reply = function (session) {
     }else{
 
 
-      let resp = 'i am confused. dafa ho';
-      let topScoringIntent = response.topScoringIntent;
+      let resp = 'Empty';
+      let topScoringIntent = intentsResponse.all[response.topScoringIntent.intent] != undefined ? response.topScoringIntent : 'None'  ;
       let intent = topScoringIntent.score > 0.1 ? topScoringIntent.intent : 'None';
       let context = session.privateConversationData.context || '';
-      console.log('intent', intent, 'context', context);
+
+      console.log('**************************************************\n**************BOT INFO START**********************\n\n')
+      console.log('utterance:',session.message.text,'\nintent:', intent,'\ncontext: ', context);
+
+      //console.log('luis response:',response);
+
       let responses = [];
 
       if (!intentsResponse.all[intent].contextNecessary) {
@@ -31,12 +36,18 @@ module.exports.reply = function (session) {
               session.privateConversationData.context = intentsResponse.all[intent].reply[context].contextSet;
             }
           }else{
-            responses = intentsResponse.all.None.reply.default.reply;
+            if(intentsResponse.all[intent].reply.default){
+              responses = intentsResponse.all[intent].reply.default.reply;
+              if(intentsResponse.all[intent].reply.default.contextSet != undefined){
+                session.privateConversationData.context = intentsResponse.all[intent].reply.default.contextSet;
+              }
+            }
+            else
+              responses = intentsResponse.all.None.reply.default.reply;
           }
 
         }
         else {
-          console.log('in else');
           responses = intentsResponse.all[intent].reply.default.reply;
           if(intentsResponse.all[intent].reply.default.contextSet){
             session.privateConversationData.context = intentsResponse.all[intent].reply.default.contextSet;
@@ -54,8 +65,15 @@ module.exports.reply = function (session) {
         }
       }
 
-      let randIndex = Math.floor(Math.random() * (responses.length)) ;
-      resp = responses[randIndex];
+      if(typeof(responses) == 'function'){
+        resp = responses(session,response,intentsResponse.all[intent]);
+      }else{
+        let randIndex = Math.floor(Math.random() * (responses.length)) ;
+        resp = responses[randIndex];
+      }
+
+      console.log('New Context:',session.privateConversationData.context);
+      console.log('\n\n**************BOT INFO START**********************\n**************************************************\n')
       session.send(resp);
       // session.privateConversationData.context = 'a';
       // session.save();
