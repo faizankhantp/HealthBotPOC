@@ -22,10 +22,3 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
     chatbot.reply(session);
 });
-
-
-
-let intentKeys = {
-  help: 'help',
-  about: 'about'
-}

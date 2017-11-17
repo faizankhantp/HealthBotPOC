@@ -17,7 +17,7 @@ module.exports.getLuisIntent = function(utterance,send_response) {
     // Set the LUIS_SUBSCRIPTION_KEY environment variable
     // to the value of your Cognitive Services subscription key
     var queryParams = {
-        "subscription-key": config.get('luisSubKey') || ,
+        "subscription-key": config.get('luisSubKey') ,
         "timezoneOffset": "0",
         "verbose":  true,
         "q": utterance
