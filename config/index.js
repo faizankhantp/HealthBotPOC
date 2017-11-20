@@ -6,7 +6,7 @@ const convict = require('convict');
 let conf = convict({
   env: {
     docs: 'Application development Environment',
-    format: ['test', 'qa', 'dev', 'local', 'prod', 'staging'],
+    format: ['test', 'qa', 'dev', 'local', 'prod', 'production', 'staging'],
     default: 'local',
     env: 'NODE_ENV'
   },
@@ -20,7 +20,7 @@ let conf = convict({
    format: '*',
    default: ''
  },
- 
+
  appSubId: {
    docs: 'app id',
    format: '*',
