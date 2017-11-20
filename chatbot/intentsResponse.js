@@ -117,22 +117,20 @@ module.exports.all = {
     contextIn: ['condition'],
     reply: {
       condition: {
-        defaultFunc: (arg) => {
-          return 'anxiety';
-        },
         reply: [`Can you tell me about the Patient's age?`],
         contextSet: 'describeAge'
       },
-      contextNecessary: true
+      default: {
+        reply: [`Can you tell me about the Patient's age?`],
+        contextSet: 'describeAge'
+      },
+      contextNecessary: false
     }
   },
   about_the_age: {
     contextIn: ['describeAge'],
     reply: {
       describeAge: {
-        defaultFunc: (arg) => {
-          return '45'
-        },
         reply: ['Has the Patient ever had a head injury?'],
         contextSet: 'describeHeadInjury',
       }
