@@ -20,6 +20,7 @@ let conf = convict({
    format: '*',
    default: ''
  },
+ 
  appSubId: {
    docs: 'app id',
    format: '*',
