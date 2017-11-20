@@ -2,7 +2,6 @@
 
 module.exports.all = {
   None: {
-    contextIn:[],
     reply: {
       default: {
         reply: [`I didn't get what you are trying to say.`, `Can you rephrase that?`]
@@ -77,12 +76,6 @@ module.exports.all = {
           })
           return resp;
         }
-      },
-      dementia: {
-        reply: []
-      },
-      alzheimer: {
-
       }
     },
     contextNecessary: false
@@ -176,6 +169,15 @@ module.exports.all = {
       default: {
         reply: ['Good Bye'],
         contextSet: ''
+      }
+    },
+    contextNecessary: false
+  },
+  about_the_contact:{
+    contextIn: [],
+    reply: {
+      default: {
+        reply: ['You can contact our care giving services any time by calling 0900-78601.']
       }
     },
     contextNecessary: false
